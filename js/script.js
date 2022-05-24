@@ -1,5 +1,5 @@
 function computerPlay() {
-    let plays = ["rock", "paper", "scisors"];
+    let plays = ["rock", "paper", "scissors"];
     let currentPlay = plays[Math.floor(Math.random() * plays.length)];
     return currentPlay;
 }
@@ -7,42 +7,73 @@ function computerPlay() {
 let computerSelection = computerPlay();
 let playerSelection = "rock";
 
-console.log(playerSelection, computerSelection);
-console.log(playRound(playerSelection, computerSelection));
-
 function playRound(playerSelection, computerSelection){
     playerSelection = playerSelection.toLowerCase();
     if (playerSelection === "rock"){
         if (computerSelection === "rock"){
-            return "It's a draw! Try again.";
+            return ["draw", "It's a draw! Try again."];
         }
         else if (computerSelection === "paper"){
-            return "Rock loses to paper. You lose!";
+            return ["loss", "Rock loses to paper. You lose!"];
         }
         else {
-            return "Rock beats scisors. You win!";
+            return ["win", "Rock beats scissors. You win!"];
         }
     }
     else if (playerSelection === "paper"){
         if (computerSelection === "paper"){
-            return "It's a draw! Try again.";
+            return ["draw", "It's a draw! Try again."];
         }
-        else if (computerSelection === "scisors"){
-            return "Paper loses to scisors. You lose!";
+        else if (computerSelection === "scissors"){
+            return ["loss", "Paper loses to scissors. You lose!"];
         }
         else {
-            return "Paper beats rock. You win!";
+            return ["win", "Paper beats rock. You win!"];
         }
     }
-    else if (playerSelection === "scisors"){
-        if (computerSelection === "scisors"){
-            return "It's a draw! Try again.";
+    else if (playerSelection === "scissors"){
+        if (computerSelection === "scissors"){
+            return ["draw", "It's a draw! Try again."];
         }
         else if (computerSelection === "rock"){
-            return "Scisors loses to rock. You lose!";
+            return ["loss", "Scissors loses to rock. You lose!"];
         }
         else {
-            return "Scisors beats paper. You win!";
+            return ["win", "Scissors beats paper. You win!"];
         }
+    }
+}
+
+function game() {
+    let draw = 0;
+    let loss = 0;
+    let win = 0;
+
+    for (let i=0; i<5; i++){
+
+        computerSelection = computerPlay();
+        playerSelection = prompt("Input 'rock, 'paper' or 'scissors'");
+        let result = playRound(playerSelection, computerSelection);
+        if (result[0] === "draw"){
+            draw++;
+        }
+        else if (result[0] === "loss"){
+            loss++;
+        }
+        else {
+            win++;
+        }
+        //console.log("Player - " + playerSelection + ". Computer - " + computerSelection);
+        console.log(result[1]);
+    }
+
+    if (win > loss){
+        console.log("You win the game! " + loss + " to " + win);
+    }
+    else if (win < loss){
+        console.log("You lose the game! " + win + " to " + loss);
+    }
+    else  {
+        console.log("Its a draw");
     }
 }
